@@ -6,6 +6,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -34,29 +36,59 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vRm-VS-K9k">
-                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <searchBar key="tableFooterView" contentMode="redraw" placeholder="Search compound by name" id="UIk-35-ha5">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </searchBar>
-                            </tableView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="bvj-CQ-KZi">
+                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUb-eH-nvi">
+                                <rect key="frame" x="8" y="170" width="359" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="d70-wo-i8s"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="21q-J8-vDK">
+                                <rect key="frame" x="94" y="250" width="187.5" height="188"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="21q-J8-vDK" secondAttribute="height" multiplier="1:1" id="EUB-NF-V6z"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W8S-mz-CZ9">
+                                <rect key="frame" x="87" y="498" width="200" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="9tS-O3-5ib"/>
+                                    <constraint firstAttribute="height" constant="30" id="bzZ-KT-Cre"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="saveButton:" destination="aYI-5V-3CE" eventType="touchUpInside" id="fDk-sg-0Ak"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Dzm-fh-UAA" firstAttribute="bottom" secondItem="vRm-VS-K9k" secondAttribute="bottom" id="Bzo-AD-WMh"/>
-                            <constraint firstItem="vRm-VS-K9k" firstAttribute="top" secondItem="Dzm-fh-UAA" secondAttribute="top" constant="-20" id="IyS-N4-V6c"/>
-                            <constraint firstItem="Dzm-fh-UAA" firstAttribute="trailing" secondItem="vRm-VS-K9k" secondAttribute="trailing" id="OIn-Hq-slR"/>
-                            <constraint firstItem="vRm-VS-K9k" firstAttribute="leading" secondItem="Dzm-fh-UAA" secondAttribute="leading" id="eNO-At-qfM"/>
+                            <constraint firstItem="21q-J8-vDK" firstAttribute="centerX" secondItem="4z4-Xo-Bma" secondAttribute="centerX" id="2hb-07-OEY"/>
+                            <constraint firstItem="FUb-eH-nvi" firstAttribute="leading" secondItem="Dzm-fh-UAA" secondAttribute="leading" constant="8" id="739-0j-DHM"/>
+                            <constraint firstItem="bvj-CQ-KZi" firstAttribute="top" secondItem="Dzm-fh-UAA" secondAttribute="top" id="Gnn-YT-MGr"/>
+                            <constraint firstItem="FUb-eH-nvi" firstAttribute="top" secondItem="bvj-CQ-KZi" secondAttribute="bottom" constant="50" id="NGn-8L-Nni"/>
+                            <constraint firstItem="W8S-mz-CZ9" firstAttribute="centerX" secondItem="4z4-Xo-Bma" secondAttribute="centerX" id="SYm-kM-TP5"/>
+                            <constraint firstItem="21q-J8-vDK" firstAttribute="width" secondItem="4z4-Xo-Bma" secondAttribute="width" multiplier="0.5" id="Woo-bO-Ood"/>
+                            <constraint firstItem="W8S-mz-CZ9" firstAttribute="top" secondItem="21q-J8-vDK" secondAttribute="bottom" constant="60" id="XXA-xb-mFw"/>
+                            <constraint firstItem="21q-J8-vDK" firstAttribute="top" secondItem="FUb-eH-nvi" secondAttribute="bottom" constant="50" id="Xcg-xM-AGt"/>
+                            <constraint firstItem="bvj-CQ-KZi" firstAttribute="trailing" secondItem="Dzm-fh-UAA" secondAttribute="trailing" id="Ym6-yB-nMh"/>
+                            <constraint firstItem="bvj-CQ-KZi" firstAttribute="leading" secondItem="Dzm-fh-UAA" secondAttribute="leading" id="wdW-KD-8ez"/>
+                            <constraint firstItem="Dzm-fh-UAA" firstAttribute="trailing" secondItem="FUb-eH-nvi" secondAttribute="trailing" constant="8" id="y8d-CM-dl9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Dzm-fh-UAA"/>
                     </view>
                     <navigationItem key="navigationItem" id="f8v-pX-g90"/>
                     <connections>
-                        <outlet property="searchBar" destination="UIk-35-ha5" id="3IA-Kj-Kb5"/>
-                        <outlet property="tableView" destination="vRm-VS-K9k" id="sGP-na-kdc"/>
+                        <outlet property="imageView" destination="21q-J8-vDK" id="Rqe-aq-Aho"/>
+                        <outlet property="moleculeName" destination="FUb-eH-nvi" id="xoI-Kl-CiA"/>
+                        <outlet property="saveButton" destination="W8S-mz-CZ9" id="xCg-Uy-7pd"/>
+                        <outlet property="searchBar" destination="bvj-CQ-KZi" id="Ahk-0S-o1U"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="asB-Az-S69" userLabel="First Responder" sceneMemberID="firstResponder"/>
