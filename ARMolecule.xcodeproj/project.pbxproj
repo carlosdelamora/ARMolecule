@@ -13,6 +13,9 @@
 		CA6D42531FF45DF700393356 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA6D42511FF45DF700393356 /* Main.storyboard */; };
 		CA6D42551FF45DF700393356 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA6D42541FF45DF700393356 /* Assets.xcassets */; };
 		CA6D42581FF45DF700393356 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA6D42561FF45DF700393356 /* LaunchScreen.storyboard */; };
+		CA6D42601FF8700600393356 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6D425F1FF8700600393356 /* SearchViewController.swift */; };
+		CA6D42631FF8736700393356 /* PublicChemClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6D42621FF8736700393356 /* PublicChemClient.swift */; };
+		CA6D42661FF874A800393356 /* Molecule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6D42651FF874A800393356 /* Molecule.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		CA6D42541FF45DF700393356 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CA6D42571FF45DF700393356 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CA6D42591FF45DF700393356 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CA6D425F1FF8700600393356 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		CA6D42621FF8736700393356 /* PublicChemClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicChemClient.swift; sourceTree = "<group>"; };
+		CA6D42651FF874A800393356 /* Molecule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Molecule.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +62,8 @@
 		CA6D424A1FF45DF700393356 /* ARMolecule */ = {
 			isa = PBXGroup;
 			children = (
+				CA6D42641FF8748D00393356 /* Model */,
+				CA6D42611FF8700E00393356 /* ViewControllers */,
 				CA6D424B1FF45DF700393356 /* AppDelegate.swift */,
 				CA6D424D1FF45DF700393356 /* art.scnassets */,
 				CA6D424F1FF45DF700393356 /* ViewController.swift */,
@@ -63,8 +71,25 @@
 				CA6D42541FF45DF700393356 /* Assets.xcassets */,
 				CA6D42561FF45DF700393356 /* LaunchScreen.storyboard */,
 				CA6D42591FF45DF700393356 /* Info.plist */,
+				CA6D42621FF8736700393356 /* PublicChemClient.swift */,
 			);
 			path = ARMolecule;
+			sourceTree = "<group>";
+		};
+		CA6D42611FF8700E00393356 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CA6D425F1FF8700600393356 /* SearchViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		CA6D42641FF8748D00393356 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CA6D42651FF874A800393356 /* Molecule.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,6 +165,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA6D42631FF8736700393356 /* PublicChemClient.swift in Sources */,
+				CA6D42601FF8700600393356 /* SearchViewController.swift in Sources */,
+				CA6D42661FF874A800393356 /* Molecule.swift in Sources */,
 				CA6D42501FF45DF700393356 /* ViewController.swift in Sources */,
 				CA6D424C1FF45DF700393356 /* AppDelegate.swift in Sources */,
 			);
