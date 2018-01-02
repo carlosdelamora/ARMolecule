@@ -31,6 +31,8 @@ class SearchViewController: UIViewController {
     }
     
     @IBAction func saveButton(_ sender: Any) {
+        
+        
     }
     
     
@@ -40,10 +42,22 @@ extension SearchViewController: UISearchBarDelegate{
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         client.performCIDSearch(searchText: searchBar.text!) { (cid) in
-            print(cid)
+            self.client.performMoleculeSearch(cid: cid, completion: { (molecule) in
+                if let molecule = molecule{
+                    if let cid = cid{
+                        self.imageView.loadImge(cid: cid)
+                    }
+                }else{
+                    self.imageView.image = nil
+                }
+            })
         }
+        searchBar.resignFirstResponder()
     }
     
+    func position(for bar: UIBarPositioning) -> UIBarPosition {
+        return .topAttached
+    }
     
     
 }
