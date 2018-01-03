@@ -46,7 +46,7 @@
                                     <constraint firstAttribute="height" constant="30" id="d70-wo-i8s"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.3411764706" green="0.85490196080000003" blue="0.83529411760000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="21q-J8-vDK">
@@ -57,17 +57,20 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W8S-mz-CZ9">
                                 <rect key="frame" x="87" y="498" width="200" height="30"/>
+                                <color key="backgroundColor" red="0.3411764706" green="0.85490196080000003" blue="0.83529411760000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="9tS-O3-5ib"/>
                                     <constraint firstAttribute="height" constant="30" id="bzZ-KT-Cre"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="saveButton:" destination="aYI-5V-3CE" eventType="touchUpInside" id="fDk-sg-0Ak"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="21q-J8-vDK" firstAttribute="centerX" secondItem="4z4-Xo-Bma" secondAttribute="centerX" id="2hb-07-OEY"/>
                             <constraint firstItem="FUb-eH-nvi" firstAttribute="leading" secondItem="Dzm-fh-UAA" secondAttribute="leading" constant="8" id="739-0j-DHM"/>
@@ -95,10 +98,10 @@
             </objects>
             <point key="canvasLocation" x="-730.39999999999998" y="97.601199400299862"/>
         </scene>
-        <!--View Controller-->
+        <!--Scene View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="ViewController" customModule="ARMolecule" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SceneViewController" id="BV1-FR-VrT" customClass="SceneViewController" customModule="ARMolecule" customModuleProvider="target" sceneMemberID="viewController">
                     <arscnView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="BrB-h1-WRS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -109,6 +112,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="356" y="88"/>
         </scene>
     </scenes>
 </document>

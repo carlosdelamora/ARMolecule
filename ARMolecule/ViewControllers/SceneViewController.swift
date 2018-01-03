@@ -10,24 +10,25 @@ import UIKit
 import SceneKit
 import ARKit
 
-class ViewController: UIViewController, ARSCNViewDelegate {
+class SceneViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
+    var molecules: [Molecule] = []
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Set the view's delegate
         sceneView.delegate = self
         
-        // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
-        
+        let tapGesture = UITapGestureRecognizer(target: self, action:#selector(placeMolecule))
+        sceneView.addGestureRecognizer(tapGesture)
         // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+        //let scene = SCNScene(named: "art.scnassets/ship.scn")!
         
         // Set the scene to the view
-        sceneView.scene = scene
+        //sceneView.scene = scene
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,12 +47,22 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Pause the view's session
         sceneView.session.pause()
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
+  
+    @objc
+    func placeMolecule(){
+        guard let molecule = molecules.first else{
+            return
+        }
+        
+        //let normalizedConformers = molecule.normalizedConformers
+        let moleculeNode = molecule.createSceneMolecule()
+        sceneView.scene.rootNode.addChildNode(moleculeNode)
+        
     }
+    
+    
 
+    
     // MARK: - ARSCNViewDelegate
     
 /*

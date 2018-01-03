@@ -17,6 +17,8 @@ class SearchViewController: UIViewController {
     
     @IBOutlet weak var saveButton: UIButton!
     
+    
+    var molecule: Molecule? = nil
     let client = PublicChemClient()
     
     override func viewDidLoad() {
@@ -31,7 +33,11 @@ class SearchViewController: UIViewController {
     }
     
     @IBAction func saveButton(_ sender: Any) {
-        
+        let sceneViewController = storyboard?.instantiateViewController(withIdentifier: "SceneViewController") as! SceneViewController
+        if let molecule = molecule{
+            sceneViewController.molecules = [molecule]
+        }
+        navigationController?.pushViewController(sceneViewController, animated: true) as? SceneViewController
         
     }
     
@@ -44,6 +50,7 @@ extension SearchViewController: UISearchBarDelegate{
         client.performCIDSearch(searchText: searchBar.text!) { (cid) in
             self.client.performMoleculeSearch(cid: cid, completion: { (molecule) in
                 if let molecule = molecule{
+                    self.molecule = molecule
                     if let cid = cid{
                         self.imageView.loadImge(cid: cid)
                     }
