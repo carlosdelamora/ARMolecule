@@ -50,12 +50,22 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
   
     @objc
     func placeMolecule(){
+        
         guard let molecule = molecules.first else{
             return
         }
         
+        guard let currentFrame = sceneView.session.currentFrame else{
+            return
+        }
+        
+        var translation = matrix_identity_float4x4
+        translation.columns.3.z = -0.40
+        
         //let normalizedConformers = molecule.normalizedConformers
         let moleculeNode = molecule.createSceneMolecule()
+        moleculeNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
+        
         sceneView.scene.rootNode.addChildNode(moleculeNode)
         
     }
