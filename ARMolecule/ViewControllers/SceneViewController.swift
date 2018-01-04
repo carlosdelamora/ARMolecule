@@ -29,6 +29,7 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
         
         // Set the scene to the view
         //sceneView.scene = scene
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,7 +61,7 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
         }
         
         var translation = matrix_identity_float4x4
-        translation.columns.3.z = -0.40
+        translation.columns.3.z = -0.30
         
         //let normalizedConformers = molecule.normalizedConformers
         let moleculeNode = molecule.createSceneMolecule()

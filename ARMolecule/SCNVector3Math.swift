@@ -73,6 +73,9 @@ extension SCNVector3 {
     func angleBetweenVectors(_ vectorB:SCNVector3) -> SCNFloat {
         let magnitudesProduct = magnitude * vectorB.magnitude
         //cos(angle) = (A.B)/(|A||B|)
+        if vectorB.magnitude == 0{
+            return 0
+        }
         let cosineAngle = acos(dotProduct(vectorB) / magnitudesProduct)
         let crossProductVector =  crossProduct(vectorB)
         let zvector = SCNVector3(0,0,1)

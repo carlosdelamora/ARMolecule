@@ -61,7 +61,21 @@ class Molecule{
             if let firstNode = gravicenterNode.childNode(withName:"\(aid1)" , recursively: true),
                 let secondNode = gravicenterNode.childNode(withName: "\(aid2)", recursively: true){
                 let bondNode = createBondNode(vector1: (firstNode.position), vector2: secondNode.position)
+                //let copycilinder:SCNNode = bondNode.clone()
                 gravicenterNode.addChildNode(bondNode)
+                //copycilinder.position = SCNFloat(0.5)*(firstNode.position + secondNode.position)
+                /*let vector1 = firstNode.position
+                let vector2 = secondNode.position
+                let vector = vector1 - vector2
+                let xrotation = SCNVector3(1,0,0).angleBetweenVectors(vector)
+                let yawnYAngle = SCNVector3(0,1,0).angleBetweenVectors(vector)
+                let rollZAngle = SCNVector3(0,0,1).angleBetweenVectors(vector)
+                copycilinder.rotation = SCNVector4Make(1,0,0, xrotation)
+                copycilinder.rotation = SCNVector4Make(0,0,1, rollZAngle)
+                copycilinder.geometry?.firstMaterial?.diffuse.contents = UIColor.blue*/
+                
+                //copycilinder.simdRotation = secondTransform
+                //gravicenterNode.addChildNode(copycilinder)
             }
            
         }
@@ -78,11 +92,19 @@ class Molecule{
         cylinder.firstMaterial?.diffuse.contents = UIColor.lightGray
         let cylinderNode = SCNNode(geometry: cylinder)
         let vector = vector1 - vector2
-        let pitchXAngle = SCNVector3(1,0,0).angleBetweenVectors(vector)
-        let yawnYAngle = SCNVector3(0,1,0).angleBetweenVectors(vector)
-        let rollZAngle = SCNVector3(0,0,1).angleBetweenVectors(vector)
-        cylinderNode.eulerAngles = SCNVector3(pitchXAngle,yawnYAngle,rollZAngle)
+        let vectorYZproj = SCNVector3(0,vector.y,vector.z)
+        let vectorXYproj = SCNVector3(vector.x,vector.y,0)
+        let xrotation = SCNVector3(0,1,0).angleBetweenVectors(vectorXYproj)
+        //let yawnYAngle = SCNVector3(0,1,0).angleBetweenVectors(vector)
+        let rollZAngle = SCNVector3(0,1,0).angleBetweenVectors(vectorYZproj)
+        let firstTransform = SCNMatrix4MakeRotation(xrotation, 1, 0, 0)
+        //let secondTransform = SCNMatrix4Rotate(firstTransform, yawnYAngle, 0, 1, 0)
+        let thirdTransform = SCNMatrix4MakeRotation(rollZAngle, 0, 0, 1)
+        //cylinderNode.transform = SCNMatrix4Mult(thirdTransform, firstTransform)
+       
+        //cylinderNode.eulerAngles = SCNVector3(xrotation,yawnYAngle,rollZAngle)
         cylinderNode.position = SCNFloat(0.5)*(vector1 + vector2)
+        
         return cylinderNode
     }
     
