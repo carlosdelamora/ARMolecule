@@ -79,13 +79,26 @@ extension SCNVector3 {
         let cosineAngle = acos(dotProduct(vectorB) / magnitudesProduct)
         let crossProductVector =  crossProduct(vectorB)
         let zvector = SCNVector3(0,0,1)
+        let xvector = SCNVector3(1,0,0)
         let angle: SCNFloat
-        let positiveCone = crossProductVector.dotProduct(vectorB)
-        if positiveCone >= 0{
+        let positiveZCone = crossProductVector.dotProduct(zvector)//we check if is positive or negative
+        let positiveXcone = crossProductVector.dotProduct(xvector)//we need two cones to check for vectors perpendicular to z
+        
+        switch positiveZCone{
+        case _ where positiveZCone > 0:
             angle = cosineAngle
-        }else{
+        case _ where positiveZCone < 0:
             angle = SCNFloat(2*(.pi) - cosineAngle)
+        case 0:
+            if positiveXcone >= 0{
+                angle = cosineAngle
+            }else{
+                angle = SCNFloat(2*(.pi) - cosineAngle)
+            }
+        default:
+            fatalError()
         }
+        
         return angle
     }
     

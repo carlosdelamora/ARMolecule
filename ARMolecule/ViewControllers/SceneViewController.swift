@@ -65,8 +65,9 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
         
         //let normalizedConformers = molecule.normalizedConformers
         let moleculeNode = molecule.createSceneMolecule()
-        moleculeNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
-        
+        //moleculeNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
+        //sceneView.debugOptions = ARSCNDebugOptions.showWorldOrigin
+        moleculeNode.position = SCNVector3(0,0, -molecule.radiusOfTheMolecule - 0.40)
         sceneView.scene.rootNode.addChildNode(moleculeNode)
         
     }
