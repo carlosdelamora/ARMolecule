@@ -20,7 +20,8 @@ class Molecule{
         conformer.z = self.conformers.z.map({$0/7})
         return conformer
     }
-    var dictionaryOfColors:[Int:UIColor] = [1:.white, 6:.black,7:.blue, 8:.red,9:.orange, 15:.brown, 16:.yellow, 17:.green, 35:.darkGray, 53:.purple]
+    
+    var dictionaryOfColors:[Int:UIColor] = [1: UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1), 6:.black,7:.blue, 8:.red,9:.orange, 15:.brown, 16:.yellow, 17:.green, 35:.darkGray, 53:.purple]
     var gravicenter:SCNVector3{
         let x = self.normalizedConformers.x.reduce(0, {$0 + $1})/Float(conformers.x.count)
         let y = self.normalizedConformers.y.reduce(0, {$0 + $1})/Float(conformers.y.count)
@@ -44,9 +45,9 @@ class Molecule{
             let sphere = SCNSphere(radius:CGFloat(radius))
             sphere.firstMaterial?.diffuse.contents = UIColor.magenta
             //let firstMaterial = SCNNmaterial()
-            //sphere.firstMaterial?.lightingModel = .physicallyBased
-            //sphere.firstMaterial?.metalness.contents =
-            //sphere.firstMaterial?.roughness.contents = 1
+            sphere.firstMaterial?.lightingModel = .physicallyBased
+            sphere.firstMaterial?.metalness.contents = 0.2
+            sphere.firstMaterial?.roughness.contents = 0.2
             if let color = dictionaryOfColors[atomsArray[i]]{
                  sphere.firstMaterial?.diffuse.contents = color
             }
