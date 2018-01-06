@@ -17,7 +17,7 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var sceneView: ARSCNView!
     var molecules: [Molecule] = []
     var light = SCNLight()
-
+    let ambient = SCNLight()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,7 +48,7 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
         // Run the view's session
         sceneView.session.run(configuration)
         insertSpotLight(position: SCNVector3(0,2,-0.30))
-        //sceneView.autoenablesDefaultLighting = true
+        sceneView.autoenablesDefaultLighting = true
         //sceneView.automaticallyUpdatesLighting = true
         
     }
@@ -79,8 +79,8 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
     
     func insertSpotLight(position: SCNVector3){
         light.type = .spot
-        light.spotInnerAngle = 100//iluminated by the ligh fully
-        light.spotOuterAngle = 120//iluminated partialy by the light
+        light.spotInnerAngle = 70//iluminated by the ligh fully
+        light.spotOuterAngle = 100//iluminated partialy by the light
         light.castsShadow = true
         light.automaticallyAdjustsShadowProjection = true
         // By default the stop light points directly down the negative
@@ -98,12 +98,11 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
         sceneView.scene.rootNode.addChildNode(lightNode)
         
         //ambient type has the same intensity in all dirctions so light intensity and position angles do not apply
-        let ambient = SCNLight()
-        ambient.type = .directional
+        ambient.type = .ambient
         let ambientNode = SCNNode()
         ambientNode.light = ambient
         ambientNode.position = SCNVector3(0,-2,0)
-        //sceneView.scene.rootNode.addChildNode(ambientNode)
+        sceneView.scene.rootNode.addChildNode(ambientNode)
         
     }
     
@@ -131,6 +130,7 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
         
         if let lightEstimate = currentFrame.lightEstimate{
             light.intensity = lightEstimate.ambientIntensity
+            ambient.intensity = lightEstimate.ambientIntensity
         }
     }
     // MARK: - ARSCNViewDelegate

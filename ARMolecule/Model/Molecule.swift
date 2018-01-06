@@ -43,6 +43,10 @@ class Molecule{
             let radius = pow(Double(atomsArray[i]),1.0/3.0)/100*2
             let sphere = SCNSphere(radius:CGFloat(radius))
             sphere.firstMaterial?.diffuse.contents = UIColor.magenta
+            //let firstMaterial = SCNNmaterial()
+            //sphere.firstMaterial?.lightingModel = .physicallyBased
+            //sphere.firstMaterial?.metalness.contents =
+            //sphere.firstMaterial?.roughness.contents = 1
             if let color = dictionaryOfColors[atomsArray[i]]{
                  sphere.firstMaterial?.diffuse.contents = color
             }
@@ -64,19 +68,7 @@ class Molecule{
                 let bondNode = createBondNode(vector1: (firstNode.position), vector2: secondNode.position)
                 //let copycilinder:SCNNode = bondNode.clone()
                 gravicenterNode.addChildNode(bondNode)
-                //copycilinder.position = SCNFloat(0.5)*(firstNode.position + secondNode.position)
-                /*let vector1 = firstNode.position
-                let vector2 = secondNode.position
-                let vector = vector1 - vector2
-                let xrotation = SCNVector3(1,0,0).angleBetweenVectors(vector)
-                let yawnYAngle = SCNVector3(0,1,0).angleBetweenVectors(vector)
-                let rollZAngle = SCNVector3(0,0,1).angleBetweenVectors(vector)
-                copycilinder.rotation = SCNVector4Make(1,0,0, xrotation)
-                copycilinder.rotation = SCNVector4Make(0,0,1, rollZAngle)
-                copycilinder.geometry?.firstMaterial?.diffuse.contents = UIColor.blue*/
-                
-                //copycilinder.simdRotation = secondTransform
-                //gravicenterNode.addChildNode(copycilinder)
+              
             }
         }
         
