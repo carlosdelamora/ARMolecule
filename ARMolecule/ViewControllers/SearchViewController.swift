@@ -8,9 +8,8 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+class SearchViewController: UIViewController{
 
-    
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var moleculeName: UILabel!
     @IBOutlet weak var imageView: UIImageView!
@@ -25,6 +24,7 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         searchBar.delegate = self
+        navigationItem.titleView = searchBar
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,8 +37,7 @@ class SearchViewController: UIViewController {
         if let molecule = molecule{
             sceneViewController.molecules = [molecule]
         }
-        navigationController?.pushViewController(sceneViewController, animated: true) as? SceneViewController
-        
+        navigationController?.pushViewController(sceneViewController, animated: true)
     }
     
     
@@ -65,6 +64,6 @@ extension SearchViewController: UISearchBarDelegate{
     func position(for bar: UIBarPositioning) -> UIBarPosition {
         return .topAttached
     }
-    
-    
 }
+
+

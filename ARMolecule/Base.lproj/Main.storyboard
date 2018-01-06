@@ -75,12 +75,12 @@
                             <constraint firstItem="21q-J8-vDK" firstAttribute="centerX" secondItem="4z4-Xo-Bma" secondAttribute="centerX" id="2hb-07-OEY"/>
                             <constraint firstItem="FUb-eH-nvi" firstAttribute="leading" secondItem="Dzm-fh-UAA" secondAttribute="leading" constant="8" id="739-0j-DHM"/>
                             <constraint firstItem="bvj-CQ-KZi" firstAttribute="top" secondItem="Dzm-fh-UAA" secondAttribute="top" id="Gnn-YT-MGr"/>
-                            <constraint firstItem="FUb-eH-nvi" firstAttribute="top" secondItem="bvj-CQ-KZi" secondAttribute="bottom" constant="50" id="NGn-8L-Nni"/>
                             <constraint firstItem="W8S-mz-CZ9" firstAttribute="centerX" secondItem="4z4-Xo-Bma" secondAttribute="centerX" id="SYm-kM-TP5"/>
                             <constraint firstItem="21q-J8-vDK" firstAttribute="width" secondItem="4z4-Xo-Bma" secondAttribute="width" multiplier="0.5" id="Woo-bO-Ood"/>
                             <constraint firstItem="W8S-mz-CZ9" firstAttribute="top" secondItem="21q-J8-vDK" secondAttribute="bottom" constant="60" id="XXA-xb-mFw"/>
                             <constraint firstItem="21q-J8-vDK" firstAttribute="top" secondItem="FUb-eH-nvi" secondAttribute="bottom" constant="50" id="Xcg-xM-AGt"/>
                             <constraint firstItem="bvj-CQ-KZi" firstAttribute="trailing" secondItem="Dzm-fh-UAA" secondAttribute="trailing" id="Ym6-yB-nMh"/>
+                            <constraint firstItem="FUb-eH-nvi" firstAttribute="top" secondItem="Dzm-fh-UAA" secondAttribute="top" constant="106" id="tRW-UM-BoN"/>
                             <constraint firstItem="bvj-CQ-KZi" firstAttribute="leading" secondItem="Dzm-fh-UAA" secondAttribute="leading" id="wdW-KD-8ez"/>
                             <constraint firstItem="Dzm-fh-UAA" firstAttribute="trailing" secondItem="FUb-eH-nvi" secondAttribute="trailing" constant="8" id="y8d-CM-dl9"/>
                         </constraints>
