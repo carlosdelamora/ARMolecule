@@ -51,9 +51,11 @@ extension SearchViewController: UISearchBarDelegate{
                 if let molecule = molecule{
                     self.molecule = molecule
                     if let cid = cid{
+                        self.moleculeName.text = searchBar.text!
                         self.imageView.loadImge(cid: cid)
                     }
                 }else{
+                    self.moleculeName.text = "We could not find the molecule in 3D"
                     self.imageView.image = nil
                 }
             })

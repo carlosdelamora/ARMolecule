@@ -16,7 +16,7 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     var molecules: [Molecule] = []
-    
+    var light = SCNLight()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,20 +34,23 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
         sceneView.addGestureRecognizer(tapGesture)
         // Create a new scene
         //let scene = SCNScene(named: "art.scnassets/ship.scn")!
-        
         // Set the scene to the view
         //sceneView.scene = scene
-        
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
-
+        configuration.isLightEstimationEnabled = true
         // Run the view's session
         sceneView.session.run(configuration)
+        insertSpotLight(position: SCNVector3(0,2,-0.30))
+        //sceneView.autoenablesDefaultLighting = true
+        //sceneView.automaticallyUpdatesLighting = true
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -74,13 +77,44 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
     }
   
     
+    func insertSpotLight(position: SCNVector3){
+        light.type = .spot
+        light.spotInnerAngle = 100//iluminated by the ligh fully
+        light.spotOuterAngle = 120//iluminated partialy by the light
+        light.castsShadow = true
+        light.automaticallyAdjustsShadowProjection = true
+        // By default the stop light points directly down the negative
+        // z-axis, we want to shine it down so rotate 90deg around the
+        // x-axis to point it down
+        let lightNode = SCNNode()
+        lightNode.light = light
+        lightNode.transform = SCNMatrix4MakeRotation(-.pi/2, 1, 0, 0)
+        lightNode.position = position
+        
+        
+        let lightGeometry = SCNSphere(radius: 0.08)
+        lightNode.geometry = lightGeometry
+        lightGeometry.firstMaterial?.diffuse.contents = UIColor.magenta
+        sceneView.scene.rootNode.addChildNode(lightNode)
+        
+        //ambient type has the same intensity in all dirctions so light intensity and position angles do not apply
+        let ambient = SCNLight()
+        ambient.type = .directional
+        let ambientNode = SCNNode()
+        ambientNode.light = ambient
+        ambientNode.position = SCNVector3(0,-2,0)
+        //sceneView.scene.rootNode.addChildNode(ambientNode)
+        
+    }
+    
+    
     func placeMolecule(node: SCNNode){
         guard let molecule = molecules.first else{
             return
         }
         //let normalizedConformers = molecule.normalizedConformers
         let moleculeNode = molecule.createSceneMolecule()
-        moleculeNode.position = SCNVector3(0,0, -molecule.radiusOfTheMolecule - 0.40)
+        moleculeNode.position = SCNVector3(0,0, -molecule.radiusOfTheMolecule - 0.20)
         node.addChildNode(moleculeNode)
     }
     
@@ -88,6 +122,16 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         
         placeMolecule(node:node)
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        guard let currentFrame = sceneView.session.currentFrame else{
+            return
+        }
+        
+        if let lightEstimate = currentFrame.lightEstimate{
+            light.intensity = lightEstimate.ambientIntensity
+        }
     }
     // MARK: - ARSCNViewDelegate
     
