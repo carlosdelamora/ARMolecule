@@ -66,47 +66,73 @@ class Molecule{
             let aid2 = bonds["aid2"]![i]
             if let firstNode = gravicenterNode.childNode(withName:"\(aid1)" , recursively: true),
                 let secondNode = gravicenterNode.childNode(withName: "\(aid2)", recursively: true){
-                let bondNode = createBondNode(vector1: (firstNode.position), vector2: secondNode.position)
+                let order = bonds["order"]![i]
+               
+                switch order{
+                case 1:
+                    let bondNode = createSingleBond(vector1: firstNode.position, vector2: secondNode.position)
+                    gravicenterNode.addChildNode(bondNode)
+                case 2:
+                    let bondeNodes = createDoubleBond(vector1: firstNode.position, vector2:secondNode.position)
+                    bondeNodes.forEach{ bond in
+                        gravicenterNode.addChildNode(bond)
+                    }
+                default:
+                    break
+                }
+                
+                
                 //let copycilinder:SCNNode = bondNode.clone()
-                gravicenterNode.addChildNode(bondNode)
+                
               
             }
         }
-        
-        
-        //gravicenterNode.position = SCNVector3(0, 0, -radiusOfTheMolecule - 0.50)
         return gravicenterNode
     }
     
-    func createBondNode(vector1:SCNVector3, vector2:SCNVector3) -> SCNNode{
-        let radius:CGFloat = 0.001
+    func createSingleBond(vector1:SCNVector3, vector2:SCNVector3) -> SCNNode{
+        let radius:CGFloat = 0.002
         let height = vector1.distanceTo(vector2)
         let cylinder = SCNCylinder(radius: radius, height: CGFloat(height))
         cylinder.firstMaterial?.diffuse.contents = UIColor.lightGray
+        cylinder.firstMaterial?.lightingModel = .physicallyBased
+        cylinder.firstMaterial?.metalness.contents = 0.2
+        cylinder.firstMaterial?.roughness.contents = 0.2
         let cylinderNode = SCNNode(geometry: cylinder)
         let vector = vector2 - vector1
         var rotationVector = vector.normalize + SCNVector3(0,1,0)
-        //let vectorYZproj = SCNVector3(0,vector.y,vector.z)
-        //let vectorXYproj = SCNVector3(vector.x,vector.y,0)
-        //let xrotation = SCNVector3(0,1,0).angleBetweenVectors(vectorYZproj)
-        //let yawnYAngle = SCNVector3(0,1,0).angleBetweenVectors(vector)
-        //let rollZAngle = SCNVector3(0,1,0).angleBetweenVectors(vectorXYproj)
-        //let firstTransform = SCNMatrix4MakeRotation(xrotation, 1, 0, 0)
-        //let secondTransform = SCNMatrix4Rotate(firstTransform, yawnYAngle, 0, 1, 0)
-        //let thirdTransform = SCNMatrix4MakeRotation(rollZAngle, 0, 0, 1)
-        //let shiftVector = SCNFloat(0.5)*(vector1 + vector2)
-        //let shifttransform = SCNMatrix4MakeTranslation(shiftVector.x, shiftVector.y, shiftVector.z)
         if rotationVector.magnitude == 0{
             rotationVector = SCNVector3(1,0,0)
         }
         let firstTransform = SCNMatrix4MakeRotation(.pi, rotationVector.x, rotationVector.y, rotationVector.z)
-        let matrixMultiplication = firstTransform//SCNMatrix4Mult(thirdTransform, firstTransform)
-        cylinderNode.transform = firstTransform//SCNMatrix4Mult(shifttransform, matrixMultiplication)
-       
-        //cylinderNode.eulerAngles = SCNVector3(xrotation,yawnYAngle,rollZAngle)
+        cylinderNode.transform = firstTransform
         cylinderNode.position = SCNFloat(0.5)*(vector1 + vector2)
         
         return cylinderNode
+    }
+    
+    func createDoubleBond(vector1:SCNVector3, vector2:SCNVector3)-> [SCNNode]{
+        let radius:CGFloat = 0.002
+        let height = vector1.distanceTo(vector2)
+        let cylinder = SCNCylinder(radius: radius, height: CGFloat(height))
+        cylinder.firstMaterial?.diffuse.contents = UIColor.lightGray
+        cylinder.firstMaterial?.lightingModel = .physicallyBased
+        cylinder.firstMaterial?.metalness.contents = 0.2
+        cylinder.firstMaterial?.roughness.contents = 0.2
+        let cylinderNode = SCNNode(geometry: cylinder)
+        let vector = vector2 - vector1
+        var rotationVector = vector.normalize + SCNVector3(0,1,0)
+        if rotationVector.magnitude == 0{
+            rotationVector = SCNVector3(1,0,0)
+        }
+        let firstTransform = SCNMatrix4MakeRotation(.pi, rotationVector.x, rotationVector.y, rotationVector.z)
+        cylinderNode.transform = firstTransform
+        let secondCylinderNode: SCNNode = cylinderNode.clone()
+        cylinderNode.position = SCNFloat(0.5)*(vector1 + vector2) + SCNVector3(0, 0.003, 0)
+        secondCylinderNode.position =  SCNFloat(0.5)*(vector1 + vector2) - SCNVector3(0, 0.003, 0)
+        
+        return [cylinderNode, secondCylinderNode]
+        
     }
     
     func cylinderGeometry(vector vector1: SCNVector3, toVector vector2: SCNVector3) -> SCNGeometry {
