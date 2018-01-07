@@ -99,20 +99,33 @@
             <point key="canvasLocation" x="-730.39999999999998" y="97.601199400299862"/>
         </scene>
         <!--Scene View Controller-->
-        <scene sceneID="tXr-a1-R10">
+        <scene sceneID="MHK-gk-ecT">
             <objects>
-                <viewController storyboardIdentifier="SceneViewController" id="BV1-FR-VrT" customClass="SceneViewController" customModule="ARMolecule" customModuleProvider="target" sceneMemberID="viewController">
-                    <arscnView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="BrB-h1-WRS">
+                <viewController storyboardIdentifier="SceneViewController" id="sCw-gK-KuO" customClass="SceneViewController" customModule="ARMolecule" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oYh-3P-bCj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </arscnView>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zQr-67-O1B">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </arscnView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="zQr-67-O1B" firstAttribute="leading" secondItem="0ig-Nb-ehO" secondAttribute="leading" id="5rQ-sd-qfe"/>
+                            <constraint firstItem="zQr-67-O1B" firstAttribute="top" secondItem="oYh-3P-bCj" secondAttribute="top" id="BfU-N9-3SB"/>
+                            <constraint firstItem="0ig-Nb-ehO" firstAttribute="bottom" secondItem="zQr-67-O1B" secondAttribute="bottom" id="qG9-H2-gdP"/>
+                            <constraint firstItem="zQr-67-O1B" firstAttribute="trailing" secondItem="0ig-Nb-ehO" secondAttribute="trailing" id="qRD-qS-0eA"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="0ig-Nb-ehO"/>
+                    </view>
                     <connections>
-                        <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
+                        <outlet property="sceneView" destination="zQr-67-O1B" id="aM5-ij-f4Y"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f32-kr-M2G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="356" y="88"/>
+            <point key="canvasLocation" x="637.60000000000002" y="87.706146926536732"/>
         </scene>
     </scenes>
 </document>
