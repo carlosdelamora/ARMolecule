@@ -93,6 +93,12 @@ class PublicChemClient{
             return
         }
         
+        func stopNetworkActivity(){
+            DispatchQueue.main.async {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            }
+        }
+        
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         let url = cidURL(cid: cid)
         let session = URLSession.shared
@@ -108,18 +114,33 @@ class PublicChemClient{
                     
                     
                     guard let values = jsonDictionary["PC_Compounds"] as? [Any] else{
+                        completion(molecule)
+                        stopNetworkActivity()
                         return
                     }
                     
                     guard let firstValue = (values[0] as? [String: Any]) else{
+                        completion(molecule)
+                        stopNetworkActivity()
                         return
                     }
                     
-                    guard let atoms = firstValue["atoms"] as? [String:[Int]] else{
+                    guard var atomsAndCharge = firstValue["atoms"] as? [String:Any] else{
+                        completion(molecule)
+                        stopNetworkActivity()
+                        return
+                    }
+                    
+                    atomsAndCharge["charge"] = nil
+                    guard let atoms = atomsAndCharge as? [String: [Int]] else {
+                        completion(molecule)
+                        stopNetworkActivity()
                         return
                     }
                     
                     guard let bonds = firstValue["bonds"] as? [String: [Int]] else{
+                        completion(molecule)
+                        stopNetworkActivity()
                         return
                     }
                     
@@ -129,13 +150,19 @@ class PublicChemClient{
                     
                     guard let coords = firstValue["coords"] as? [Any], let coordsValue = coords[0] as? [String:Any] else{
                         return
+                        stopNetworkActivity()
+                        completion(molecule)
                     }
                     
                     guard let conformersInArray = coordsValue["conformers"] as? [Any], let conformersDicionary = conformersInArray[0] as? [String: Any] else{
+                        stopNetworkActivity()
+                        completion(molecule)
                         return
                     }
                     
                     guard let conformers = Conformers(dictionary: conformersDicionary) else{
+                        stopNetworkActivity()
+                        completion(molecule)
                         return
                     }
                     
@@ -143,10 +170,10 @@ class PublicChemClient{
                 }
             }
             
-            DispatchQueue.main.async {
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                completion(molecule)
-            }
+            
+            stopNetworkActivity()
+            completion(molecule)
+           
         })
         
         moleculeDataTask?.resume()

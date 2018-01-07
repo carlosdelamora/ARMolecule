@@ -46,14 +46,19 @@ class SearchViewController: UIViewController{
 extension SearchViewController: UISearchBarDelegate{
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        client.performCIDSearch(searchText: searchBar.text!) { (cid) in
+        let searchtext = searchBar.text!.replacingOccurrences(of: " ", with: "-")
+        client.performCIDSearch(searchText: searchtext) { (cid) in
+            guard let cid = cid else{
+                self.moleculeName.text = "We could not find the compound \(searchtext)"
+                return
+            }
+            
             self.client.performMoleculeSearch(cid: cid, completion: { (molecule) in
                 if let molecule = molecule{
                     self.molecule = molecule
-                    if let cid = cid{
-                        self.moleculeName.text = searchBar.text!
-                        self.imageView.loadImge(cid: cid)
-                    }
+                    self.moleculeName.text = searchtext
+                    self.imageView.loadImge(cid: cid)
+                  
                 }else{
                     self.moleculeName.text = "We could not find the molecule in 3D"
                     self.imageView.image = nil

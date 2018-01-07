@@ -77,18 +77,13 @@ class Molecule{
                     bondeNodes.forEach{ bond in
                         gravicenterNode.addChildNode(bond)
                     }
-                default:
+                default://this should be triple bonds
                     let bondeNodes = createTripleBond(vector1: firstNode.position, vector2:secondNode.position)
                     bondeNodes.forEach{ bond in
                         gravicenterNode.addChildNode(bond)
                     }
-                    break
                 }
                 
-                
-                //let copycilinder:SCNNode = bondNode.clone()
-                
-              
             }
         }
         return gravicenterNode
