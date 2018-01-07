@@ -149,9 +149,9 @@ class PublicChemClient{
                     molecule!.bonds = bonds
                     
                     guard let coords = firstValue["coords"] as? [Any], let coordsValue = coords[0] as? [String:Any] else{
-                        return
                         stopNetworkActivity()
                         completion(molecule)
+                        return
                     }
                     
                     guard let conformersInArray = coordsValue["conformers"] as? [Any], let conformersDicionary = conformersInArray[0] as? [String: Any] else{

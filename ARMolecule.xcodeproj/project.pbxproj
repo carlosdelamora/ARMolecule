@@ -18,6 +18,7 @@
 		CA6D42661FF874A800393356 /* Molecule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6D42651FF874A800393356 /* Molecule.swift */; };
 		CA6D42681FFC1BC400393356 /* UIImageView+DownloadingImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6D42671FFC1BC300393356 /* UIImageView+DownloadingImage.swift */; };
 		CA6D426A1FFD623300393356 /* SCNVector3Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6D42691FFD623300393356 /* SCNVector3Math.swift */; };
+		CA6D426C2002AC0600393356 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6D426B2002AC0600393356 /* CustomNavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		CA6D42651FF874A800393356 /* Molecule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Molecule.swift; sourceTree = "<group>"; };
 		CA6D42671FFC1BC300393356 /* UIImageView+DownloadingImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadingImage.swift"; sourceTree = "<group>"; };
 		CA6D42691FFD623300393356 /* SCNVector3Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCNVector3Math.swift; sourceTree = "<group>"; };
+		CA6D426B2002AC0600393356 /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				CA6D42651FF874A800393356 /* Molecule.swift */,
+				CA6D426B2002AC0600393356 /* CustomNavigationController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 				CA6D42661FF874A800393356 /* Molecule.swift in Sources */,
 				CA6D42501FF45DF700393356 /* SceneViewController.swift in Sources */,
 				CA6D426A1FFD623300393356 /* SCNVector3Math.swift in Sources */,
+				CA6D426C2002AC0600393356 /* CustomNavigationController.swift in Sources */,
 				CA6D424C1FF45DF700393356 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -24,6 +24,13 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
         // Set the view's delegate
         sceneView.delegate = self
         
+        /*//navigationController?.navigationBar.barTintColor = .clear
+        //navigationController?.navigationBar.tintColor = .clear
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.view.backgroundColor = UIColor.clear*/
+
         /*
          Prevent the screen from being dimmed after a while as users will likely
          have long periods of interaction without touching the screen or buttons.
@@ -41,6 +48,9 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if let navigationController = navigationController as? CustomNavigationController{
+            navigationController.isSceneView = true
+        }
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
@@ -55,11 +65,9 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         // Pause the view's session
         sceneView.session.pause()
     }
-    
     
     @objc
     func addAnAchor(){
