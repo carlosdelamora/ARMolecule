@@ -56,11 +56,17 @@ extension SearchViewController: UISearchBarDelegate{
             self.client.performMoleculeSearch(cid: cid, completion: { (molecule) in
                 if let molecule = molecule{
                     self.molecule = molecule
-                    self.moleculeName.text = searchtext
+                    DispatchQueue.main.async {
+                        self.moleculeName.text = searchtext
+                    }
+                    
                     self.imageView.loadImge(cid: cid)
                   
                 }else{
-                    self.moleculeName.text = "We could not find the molecule in 3D"
+                    DispatchQueue.main.async {
+                        self.moleculeName.text = "We could not find the molecule in 3D"
+                    }
+                    
                     self.imageView.image = nil
                 }
             })
