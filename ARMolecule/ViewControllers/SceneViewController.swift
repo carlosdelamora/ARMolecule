@@ -13,16 +13,26 @@ import simd
 import GLKit
 
 class SceneViewController: UIViewController, ARSCNViewDelegate {
-
-    @IBOutlet var sceneView: ARSCNView!
+    
     var molecules: [Molecule] = []
     var light = SCNLight()
     let ambient = SCNLight()
+    var objectNodes: [SCNNode] = []
+    //MARK- Outlets
+    @IBOutlet var sceneView: ARSCNView!
+    @IBOutlet weak var visualEffectView: UIVisualEffectView!
+    @IBOutlet weak var statusLabel: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Set the view's delegate
         sceneView.delegate = self
+        //set the style of the visual effect
+        visualEffectView.layer.cornerRadius = 8
+        visualEffectView.clipsToBounds = true
+        
         /*
          Prevent the screen from being dimmed after a while as users will likely
          have long periods of interaction without touching the screen or buttons.
@@ -31,10 +41,8 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
         
         let tapGesture = UITapGestureRecognizer(target: self, action:#selector(addAnAchor))
         sceneView.addGestureRecognizer(tapGesture)
-        // Create a new scene
-        //let scene = SCNScene(named: "art.scnassets/ship.scn")!
-        // Set the scene to the view
-        //sceneView.scene = scene
+        
+        run()
     }
     
     
@@ -44,21 +52,12 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
             navigationController.isSceneView = true
         }
         
-        // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.isLightEstimationEnabled = true
-        // Run the view's session
-        sceneView.session.run(configuration)
-        insertSpotLight(position: SCNVector3(0,2,-0.30))
-        sceneView.autoenablesDefaultLighting = true
-        //sceneView.automaticallyUpdatesLighting = true
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // Pause the view's session
-        sceneView.session.pause()
+        //sceneView.session.pause()
     }
     
     @objc
@@ -75,6 +74,16 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
         let anchor = ARAnchor(transform: product)
         sceneView.session.add(anchor: anchor)
     }
+    
+    func run(){
+        // Create a session configuration
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.isLightEstimationEnabled = true
+        // Run the view's session
+        sceneView.session.run(configuration)
+        insertSpotLight(position: SCNVector3(0,2,-0.30))
+        sceneView.autoenablesDefaultLighting = true
+    }
   
     
     func insertSpotLight(position: SCNVector3){
@@ -90,11 +99,6 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
         lightNode.light = light
         lightNode.transform = SCNMatrix4MakeRotation(-.pi/2, 1, 0, 0)
         lightNode.position = position
-        
-        
-        let lightGeometry = SCNSphere(radius: 0.08)
-        lightNode.geometry = lightGeometry
-        lightGeometry.firstMaterial?.diffuse.contents = UIColor.magenta
         sceneView.scene.rootNode.addChildNode(lightNode)
         
         //ambient type has the same intensity in all dirctions so light intensity and position angles do not apply
@@ -124,6 +128,8 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        
+        updateTrackingInfo()
         guard let currentFrame = sceneView.session.currentFrame else{
             return
         }
@@ -133,30 +139,89 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
             ambient.intensity = lightEstimate.ambientIntensity
         }
     }
+    
     // MARK: - ARSCNViewDelegate
-    
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-     
-        return node
-    }
-*/
-    
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
-        
+        statusLabel.text = "Session failed: \(error.localizedDescription)"
+        visualEffectView.isHidden = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            if !self.statusLabel.text!.isEmpty{
+                self.statusLabel.text = ""
+                self.visualEffectView.isHidden = true
+            }
+        }
+        run()
+       
     }
     
     func sessionWasInterrupted(_ session: ARSession) {
         // Inform the user that the session has been interrupted, for example, by presenting an overlay
-        
+        statusLabel.text = "Session was interrupted"
+        visualEffectView.isHidden = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            if !self.statusLabel.text!.isEmpty{
+                self.statusLabel.text = ""
+                self.visualEffectView.isHidden = true
+            }
+        }
     }
     
     func sessionInterruptionEnded(_ session: ARSession) {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
+        statusLabel.text = "Session interruption ended"
+        visualEffectView.isHidden = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            if !self.statusLabel.text!.isEmpty{
+                self.statusLabel.text = ""
+                self.visualEffectView.isHidden = true
+            }
+        }
+        removeAllObjects()
+        run()
+    }
+    
+    
+    private func updateTrackingInfo(){
+        guard let frame = sceneView.session.currentFrame else{
+            return
+        }
         
+        var message: String = ""
+        switch frame.camera.trackingState {
+        case .limited(let reason):
+            switch reason{
+            case .excessiveMotion:
+                message = "Limited tracking: Excesive Motion"
+            case .insufficientFeatures:
+                message = "Limited tracking: Insufficient details"
+            case .initializing:
+                message = "Initializing in progress"
+            }
+        case .notAvailable:
+            message = "Tracking not available"
+        default:
+            message = ""
+        }
+        
+        guard let lightEstimate = frame.lightEstimate?.ambientIntensity else {
+            return
+        }
+        
+        if lightEstimate < 100{
+            message = "Limited tracking: Too dark"
+        }
+        DispatchQueue.main.async {
+            self.statusLabel.text = message
+            self.visualEffectView.isHidden = message.isEmpty
+        }
+    }
+    
+    func removeAllObjects() {
+        for object in objectNodes {
+            object.removeFromParentNode()
+        }
+        objectNodes = []
     }
 }
 

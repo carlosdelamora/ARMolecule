@@ -109,11 +109,40 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zQr-67-O1B">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </arscnView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AXv-7z-bIa">
+                                <rect key="frame" x="15" y="20" width="345" height="46"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Eb4-GY-C3w">
+                                    <rect key="frame" x="0.0" y="0.0" width="345" height="46"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Initializing..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sx0-SZ-XdI">
+                                            <rect key="frame" x="8" y="8" width="329" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="hUc-Vh-lIp"/>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="nTp-Wb-xYw"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="sx0-SZ-XdI" secondAttribute="trailing" constant="8" id="VUC-ET-tcl"/>
+                                        <constraint firstItem="sx0-SZ-XdI" firstAttribute="top" secondItem="Eb4-GY-C3w" secondAttribute="top" constant="8" id="nX0-Pz-3EW"/>
+                                        <constraint firstAttribute="bottom" secondItem="sx0-SZ-XdI" secondAttribute="bottom" constant="8" id="vhj-Xa-gRw"/>
+                                        <constraint firstItem="sx0-SZ-XdI" firstAttribute="leading" secondItem="Eb4-GY-C3w" secondAttribute="leading" constant="8" id="zFh-ft-uVM"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="AXv-7z-bIa" firstAttribute="top" secondItem="0ig-Nb-ehO" secondAttribute="top" id="3kq-fd-lFi"/>
                             <constraint firstItem="zQr-67-O1B" firstAttribute="leading" secondItem="0ig-Nb-ehO" secondAttribute="leading" id="5rQ-sd-qfe"/>
                             <constraint firstItem="zQr-67-O1B" firstAttribute="top" secondItem="oYh-3P-bCj" secondAttribute="top" id="BfU-N9-3SB"/>
+                            <constraint firstItem="0ig-Nb-ehO" firstAttribute="trailing" secondItem="AXv-7z-bIa" secondAttribute="trailing" constant="15" id="Fo7-6J-QgL"/>
+                            <constraint firstItem="AXv-7z-bIa" firstAttribute="leading" secondItem="0ig-Nb-ehO" secondAttribute="leading" constant="15" id="Z44-9r-fdl"/>
                             <constraint firstItem="0ig-Nb-ehO" firstAttribute="bottom" secondItem="zQr-67-O1B" secondAttribute="bottom" id="qG9-H2-gdP"/>
                             <constraint firstItem="zQr-67-O1B" firstAttribute="trailing" secondItem="0ig-Nb-ehO" secondAttribute="trailing" id="qRD-qS-0eA"/>
                         </constraints>
@@ -121,11 +150,13 @@
                     </view>
                     <connections>
                         <outlet property="sceneView" destination="zQr-67-O1B" id="aM5-ij-f4Y"/>
+                        <outlet property="statusLabel" destination="sx0-SZ-XdI" id="BaM-VG-nH1"/>
+                        <outlet property="visualEffectView" destination="AXv-7z-bIa" id="rzp-Pz-4EE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f32-kr-M2G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="637.60000000000002" y="87.706146926536732"/>
+            <point key="canvasLocation" x="96.799999999999997" y="97.601199400299862"/>
         </scene>
     </scenes>
 </document>
