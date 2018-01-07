@@ -78,6 +78,10 @@ class Molecule{
                         gravicenterNode.addChildNode(bond)
                     }
                 default:
+                    let bondeNodes = createTripleBond(vector1: firstNode.position, vector2:secondNode.position)
+                    bondeNodes.forEach{ bond in
+                        gravicenterNode.addChildNode(bond)
+                    }
                     break
                 }
                 
@@ -134,6 +138,33 @@ class Molecule{
         return [cylinderNode, secondCylinderNode]
         
     }
+    
+    func createTripleBond(vector1:SCNVector3, vector2:SCNVector3)-> [SCNNode]{
+        let radius:CGFloat = 0.002
+        let height = vector1.distanceTo(vector2)
+        let cylinder = SCNCylinder(radius: radius, height: CGFloat(height))
+        cylinder.firstMaterial?.diffuse.contents = UIColor.lightGray
+        cylinder.firstMaterial?.lightingModel = .physicallyBased
+        cylinder.firstMaterial?.metalness.contents = 0.2
+        cylinder.firstMaterial?.roughness.contents = 0.2
+        let cylinderNode = SCNNode(geometry: cylinder)
+        let vector = vector2 - vector1
+        var rotationVector = vector.normalize + SCNVector3(0,1,0)
+        if rotationVector.magnitude == 0{
+            rotationVector = SCNVector3(1,0,0)
+        }
+        let firstTransform = SCNMatrix4MakeRotation(.pi, rotationVector.x, rotationVector.y, rotationVector.z)
+        cylinderNode.transform = firstTransform
+        let secondCylinderNode: SCNNode = cylinderNode.clone()
+        let thirdCylinderNode: SCNNode = cylinderNode.clone()
+        let displasementVector = SCNVector3(0, 0.006, 0)
+        cylinderNode.position = SCNFloat(0.5)*(vector1 + vector2)
+        secondCylinderNode.position = SCNFloat(0.5)*(vector1 + vector2) + displasementVector
+        thirdCylinderNode.position =  SCNFloat(0.5)*(vector1 + vector2) - displasementVector
+        return [cylinderNode, secondCylinderNode, thirdCylinderNode]
+        
+    }
+    
     
     func cylinderGeometry(vector vector1: SCNVector3, toVector vector2: SCNVector3) -> SCNGeometry {
         let indices: [Int32] = [0, 1]
