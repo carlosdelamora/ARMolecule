@@ -38,6 +38,7 @@ class CustomNavigationController: UINavigationController {
             navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
             navigationBar.shadowImage = nil
             view.backgroundColor = nil
+            navigationBar.tintColor = .black
         }
     }
 

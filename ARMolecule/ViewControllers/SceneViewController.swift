@@ -18,6 +18,7 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
     var light = SCNLight()
     let ambient = SCNLight()
     var objectNodes: [SCNNode] = []
+    
     //MARK- Outlets
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
@@ -32,7 +33,6 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
         //set the style of the visual effect
         visualEffectView.layer.cornerRadius = 8
         visualEffectView.clipsToBounds = true
-        
         /*
          Prevent the screen from being dimmed after a while as users will likely
          have long periods of interaction without touching the screen or buttons.
@@ -41,7 +41,8 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
         
         let tapGesture = UITapGestureRecognizer(target: self, action:#selector(addAnAchor))
         sceneView.addGestureRecognizer(tapGesture)
-        
+        let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentSearchViewController))
+        navigationItem.rightBarButtonItem = button
         run()
     }
     
@@ -58,6 +59,15 @@ class SceneViewController: UIViewController, ARSCNViewDelegate {
         super.viewWillDisappear(animated)
         // Pause the view's session
         //sceneView.session.pause()
+    }
+    
+    @objc
+    func presentSearchViewController(){
+         let searchViewController = storyboard?.instantiateViewController(withIdentifier: "SearchViewController") as? SearchViewController
+        if let searchViewController = searchViewController{
+            searchViewController.sceneViewController = self
+            navigationController?.pushViewController(searchViewController, animated: true)
+        }
     }
     
     @objc
