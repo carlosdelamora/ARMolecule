@@ -8,7 +8,9 @@
 
 import Foundation
 import ARKit
+let moleculeString:String = "Molecule"
 class Molecule{
+    
     var name = ""
     var conformers:Conformers = Conformers()
     var atoms: [String: [Int]] = [:]//should have keys "aid", "element", element is given by the number of protons of the atom
@@ -86,6 +88,8 @@ class Molecule{
                 
             }
         }
+        
+        gravicenterNode.name = moleculeString
         return gravicenterNode
     }
     
@@ -168,6 +172,17 @@ class Molecule{
         let element = SCNGeometryElement(indices: indices, primitiveType: .line)
         
         return SCNGeometry(sources: [source], elements: [element])
+    }
+    
+    
+    //we check if there is a molecule containing the node
+    static func existingMoleculeContainingNode(node: SCNNode)-> SCNNode? {
+        if let nodeName = node.name, nodeName == moleculeString{
+            return node
+        }
+        guard let parentNode = node.parent else {return nil}
+        
+        return existingMoleculeContainingNode(node: parentNode)
     }
     
 }
