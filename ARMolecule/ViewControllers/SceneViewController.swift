@@ -24,6 +24,8 @@ class SceneViewController: UIViewController{
     //TODO: erase this
     let centerNode = SCNNode()
     
+    
+    
     //MARK- Outlets
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
@@ -36,7 +38,8 @@ class SceneViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //we hide the tutorial and only display it once
+        hideTutorial(true)
         // Set the view's delegate
         sceneView.delegate = self
         //set the style of the visual effect
@@ -62,8 +65,6 @@ class SceneViewController: UIViewController{
         run()
     }
     
-    
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let navigationController = navigationController as? CustomNavigationController{
@@ -72,12 +73,8 @@ class SceneViewController: UIViewController{
         
     }
     
-  
-    
     @IBAction func gotItAction(_ sender: Any) {
-        
-        gotItButon.isHidden = true
-        fingerRotationView.isHidden = true 
+        hideTutorial(true)
     }
     
     @objc
@@ -127,7 +124,15 @@ class SceneViewController: UIViewController{
         insertSpotLight(position: position)
         sceneView.autoenablesDefaultLighting = true
     }
-  
+    
+    func hideTutorial(_ bool: Bool){
+        gotItButon.isHidden = bool
+        fingerRotationView.isHidden = bool
+        visualEffectView.isHidden = bool
+        if !bool{
+            statusLabel.text = "Use two fingers to rotate the molecule"
+        }
+    }
     
     func insertSpotLight(position: SCNVector3){
         light.type = .spot
@@ -163,6 +168,14 @@ class SceneViewController: UIViewController{
         let moleculeNode = molecule.createSceneMolecule()
         moleculeNode.position = SCNVector3(0,0, -molecule.radiusOfTheMolecule - 0.20)
         node.addChildNode(moleculeNode)
+        
+        //if there is something is not the first molecule to be add it
+        if UserDefaults.standard.value(forKey: "firstMolecule") == nil {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                self.hideTutorial(false)
+            }
+            UserDefaults.standard.set(false, forKey: "firstMolecule")
+        }
     }
     
     func removeAllObjects() {
