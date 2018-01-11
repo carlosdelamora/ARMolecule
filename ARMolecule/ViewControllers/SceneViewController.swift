@@ -43,14 +43,19 @@ class SceneViewController: UIViewController{
          have long periods of interaction without touching the screen or buttons.
          */
         UIApplication.shared.isIdleTimerDisabled = true
+        //add gesture recognizers
         let tapGesture = UITapGestureRecognizer(target: self, action:#selector(addAnAchor))
         sceneView.addGestureRecognizer(tapGesture)
-        let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentSearchViewController))
-        navigationItem.rightBarButtonItem = button
         let rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotationForMolecule(gesture:)))
         sceneView.addGestureRecognizer(rotationGesture)
-        run()
         
+        //add buttons
+        let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentSearchViewController))
+        navigationItem.rightBarButtonItem = button
+        
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refresh))
+        navigationItem.leftBarButtonItem = refreshButton
+        run()
     }
     
     
@@ -95,6 +100,12 @@ class SceneViewController: UIViewController{
         
     }
     
+    @objc
+    func refresh(){
+        removeAllObjects()
+        run()
+    }
+    
     func run(){
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
@@ -120,6 +131,7 @@ class SceneViewController: UIViewController{
         lightNode.transform = SCNMatrix4MakeRotation(-.pi/2, 1, 0, 0)
         lightNode.position = position
         sceneView.scene.rootNode.addChildNode(lightNode)
+        objectNodes.append(lightNode)
         
         //ambient type has the same intensity in all dirctions so light intensity and position angles do not apply
         ambient.type = .ambient
@@ -127,7 +139,7 @@ class SceneViewController: UIViewController{
         ambientNode.light = ambient
         ambientNode.position = SCNVector3(0,-2,0)
         sceneView.scene.rootNode.addChildNode(ambientNode)
-        
+        objectNodes.append(ambientNode)
     }
     
     
