@@ -19,6 +19,10 @@ class SceneViewController: UIViewController{
     let ambient = SCNLight()
     var objectNodes: [SCNNode] = []
     
+    var nodeMolecule: SCNNode?//we use it for rotation
+    var initialVector: SCNVector3 = SCNVector3Zero//we used for rotation
+    
+    
     //MARK- Outlets
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
@@ -43,7 +47,35 @@ class SceneViewController: UIViewController{
         sceneView.addGestureRecognizer(tapGesture)
         let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentSearchViewController))
         navigationItem.rightBarButtonItem = button
+        
+        let panGestureForRotation = UIPanGestureRecognizer(target: self, action: #selector(rotationForMolecule(gesture:)))
+        panGestureForRotation.minimumNumberOfTouches = 1
+        panGestureForRotation.maximumNumberOfTouches = 1
+        sceneView.addGestureRecognizer(panGestureForRotation)
         run()
+        understandEulerNagles()
+    }
+    
+    
+    func understandEulerNagles(){
+        let yCylinder = SCNCylinder(radius: 0.002, height: 0.3)
+        yCylinder.firstMaterial?.diffuse.contents = UIColor.yellow
+        let yAxis = SCNNode(geometry: yCylinder)
+        let xCylinder = SCNCylinder(radius: 0.002, height: 0.3)
+        xCylinder.firstMaterial?.diffuse.contents = UIColor.red
+        let xAxis = SCNNode(geometry: xCylinder)
+        xAxis.eulerAngles.z = -(.pi/2)
+        let zCylinder = SCNCylinder(radius: 0.002, height: 0.3)
+        zCylinder.firstMaterial?.diffuse.contents = UIColor.blue
+        let zAxis = SCNNode(geometry: zCylinder)
+        zAxis.eulerAngles.x = -(.pi/2)
+        let centerNode = SCNNode()
+        centerNode.addChildNode(yAxis)
+        centerNode.addChildNode(xAxis)
+        centerNode.addChildNode(zAxis)
+        centerNode.position = SCNVector3(0.0,0.0,-0.4)
+        let rotationNode = centerNode.clone()
+        sceneView.scene.rootNode.addChildNode(centerNode)
     }
     
     
@@ -132,8 +164,6 @@ class SceneViewController: UIViewController{
         node.addChildNode(moleculeNode)
     }
     
-
-    
     func removeAllObjects() {
         for object in objectNodes {
             object.removeFromParentNode()
@@ -152,6 +182,78 @@ extension float4x4 {
 
 
 extension SceneViewController{
+    
+    @objc
+    func rotationForMolecule(gesture: UIPanGestureRecognizer){
+        
+        
+        switch gesture.state{
+        
+        case .began:
+            
+            let midPoint = gesture.location(ofTouch: 0, in: view)//.midPoint(point: gesture.location(ofTouch: 1, in: view))
+            let hitTestOptions:[SCNHitTestOption: Any] = [.boundingBoxOnly: true]
+            let hitresults = sceneView.hitTest(midPoint, options: hitTestOptions)
+            nodeMolecule = hitresults.lazy.flatMap{Molecule.existingMoleculeContainingNode(node: $0.node)}.first
+            guard let nodeMolecule = nodeMolecule else{
+                print("begining node molecule is null")
+                return
+            }
+
+            let nodePosition = nodeMolecule.position
+            let positionOfTouch = sceneView.unprojectPoint(SCNVector3(midPoint.x,midPoint.y,0.0))
+            //we calculate the vector from the gesture ray to the gravicenter
+            //the initial vector
+            initialVector = positionOfTouch - nodePosition
+            
+        case .changed:
+            
+            if gesture.numberOfTouches == 1{
+                let midPoint = gesture.location(ofTouch: 0, in: view)//.midPoint(point: gesture.location(ofTouch: 1, in: view))
+                guard let nodeMolecule = nodeMolecule else{
+                    print("the node molecule is null")
+                    return
+                }
+                let nodePosition = nodeMolecule.position
+                let positionOfTouch = sceneView.unprojectPoint(SCNVector3(midPoint.x,midPoint.y,0.0))
+                //we calculate the vector from the gesture ray to the gravicenter
+                //the initial vector
+                let currentVector = positionOfTouch - nodePosition
+                //we need to get the object to rotate.
+                let axisOfRotation = initialVector.crossProduct(currentVector).normalize
+                if axisOfRotation.length() > 0.0{
+                    let angleOfRotation = initialVector.angleBetweenVectors(currentVector)
+                    let moleculePositionZ = sceneView.projectPoint(nodeMolecule.position).z
+                    let cellAngle = atan(0.05/moleculePositionZ)*2
+                    let angleToRotate = angleOfRotation/cellAngle*2*(.pi)
+                    var smoothAngleOfRotation:[Float] = [nodeMolecule.eulerAngles.y]
+                    smoothAngleOfRotation.append(angleToRotate)
+                    let lastThen = Array(smoothAngleOfRotation.suffix(10))
+                    let average = lastThen.reduce(0.0, {$0 + $1})/10.0
+                    let quaternionImaginary = sin(average/2)*axisOfRotation
+                    nodeMolecule.localRotate(by: SCNQuaternion(cos(average/2),quaternionImaginary.x,quaternionImaginary.y, quaternionImaginary.z))
+                    //nodeMolecule.eulerAngles.y = 10*average
+                    //nodeMolecule.rotation = SCNVector4(10*average, axisOfRotation.x,axisOfRotation.y, axisOfRotation.z)//angleO
+                    initialVector = currentVector
+                    
+                    
+                    print("angle \(average)")
+                    
+                }
+                //we calculate the vector from the current position to the gravicenter
+                //we calculate the normal vector and the angle btween node gravicenter and
+                //the current position
+                //we rotate the gravicenter by the computed transform
+                
+            }
+            
+        case .ended:
+            print("velocity \(gesture.velocity(in: view))")
+        default:
+            break
+        }
+    }
+    
     
     
 }

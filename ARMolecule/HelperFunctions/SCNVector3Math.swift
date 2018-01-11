@@ -73,10 +73,18 @@ extension SCNVector3 {
     func angleBetweenVectors(_ vectorB:SCNVector3) -> SCNFloat {
         let magnitudesProduct = magnitude * vectorB.magnitude
         //cos(angle) = (A.B)/(|A||B|)
-        if vectorB.magnitude == 0{
+        if vectorB.magnitude == 0 || self.magnitude == 0{
             return 0
         }
-        let cosineAngle = acos(dotProduct(vectorB) / magnitudesProduct)
+        var cosineOfAngle = dotProduct(vectorB) / magnitudesProduct
+        //because of inperfections of the computations we may get something outside the interval -1,1 we check everything goes smoothly 
+        if cosineOfAngle > 1{
+            cosineOfAngle = 1
+        }else if cosineOfAngle < -1{
+            cosineOfAngle = -1
+        }
+        
+        let cosineAngle = acos(cosineOfAngle)
         let crossProductVector =  crossProduct(vectorB)
         let zvector = SCNVector3(0,0,1)
         let xvector = SCNVector3(1,0,0)
@@ -88,12 +96,12 @@ extension SCNVector3 {
         case _ where positiveZCone > 0:
             angle = cosineAngle
         case _ where positiveZCone < 0:
-            angle = SCNFloat(2*(.pi) - cosineAngle)
+            angle = SCNFloat(-cosineAngle)
         case 0:
             if positiveXcone >= 0{
                 angle = cosineAngle
             }else{
-                angle = SCNFloat(2*(.pi) - cosineAngle)
+                angle = SCNFloat( -cosineAngle)
             }
         default:
             fatalError()

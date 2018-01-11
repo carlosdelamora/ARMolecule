@@ -21,6 +21,7 @@
 		CA6D426C2002AC0600393356 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6D426B2002AC0600393356 /* CustomNavigationController.swift */; };
 		CA6D426E200461B500393356 /* VirtualObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6D426D200461B500393356 /* VirtualObject.swift */; };
 		CA6D42702004799C00393356 /* SceneViewController+ARSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6D426F2004799C00393356 /* SceneViewController+ARSessionDelegate.swift */; };
+		CA6D4272200551E800393356 /* HelperFunctionsCGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6D4271200551E800393356 /* HelperFunctionsCGPoint.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		CA6D426B2002AC0600393356 /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		CA6D426D200461B500393356 /* VirtualObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualObject.swift; sourceTree = "<group>"; };
 		CA6D426F2004799C00393356 /* SceneViewController+ARSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneViewController+ARSessionDelegate.swift"; sourceTree = "<group>"; };
+		CA6D4271200551E800393356 /* HelperFunctionsCGPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctionsCGPoint.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 		CA6D424A1FF45DF700393356 /* ARMolecule */ = {
 			isa = PBXGroup;
 			children = (
+				CA6D4273200551F600393356 /* HelperFunctions */,
 				CA6D42641FF8748D00393356 /* Model */,
 				CA6D42611FF8700E00393356 /* ViewControllers */,
 				CA6D424B1FF45DF700393356 /* AppDelegate.swift */,
@@ -81,8 +84,6 @@
 				CA6D42561FF45DF700393356 /* LaunchScreen.storyboard */,
 				CA6D42591FF45DF700393356 /* Info.plist */,
 				CA6D42621FF8736700393356 /* PublicChemClient.swift */,
-				CA6D42671FFC1BC300393356 /* UIImageView+DownloadingImage.swift */,
-				CA6D42691FFD623300393356 /* SCNVector3Math.swift */,
 			);
 			path = ARMolecule;
 			sourceTree = "<group>";
@@ -105,6 +106,16 @@
 				CA6D426D200461B500393356 /* VirtualObject.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		CA6D4273200551F600393356 /* HelperFunctions */ = {
+			isa = PBXGroup;
+			children = (
+				CA6D42671FFC1BC300393356 /* UIImageView+DownloadingImage.swift */,
+				CA6D42691FFD623300393356 /* SCNVector3Math.swift */,
+				CA6D4271200551E800393356 /* HelperFunctionsCGPoint.swift */,
+			);
+			path = HelperFunctions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,6 +194,7 @@
 				CA6D42631FF8736700393356 /* PublicChemClient.swift in Sources */,
 				CA6D42681FFC1BC400393356 /* UIImageView+DownloadingImage.swift in Sources */,
 				CA6D42702004799C00393356 /* SceneViewController+ARSessionDelegate.swift in Sources */,
+				CA6D4272200551E800393356 /* HelperFunctionsCGPoint.swift in Sources */,
 				CA6D42601FF8700600393356 /* SearchViewController.swift in Sources */,
 				CA6D42661FF874A800393356 /* Molecule.swift in Sources */,
 				CA6D42501FF45DF700393356 /* SceneViewController.swift in Sources */,
