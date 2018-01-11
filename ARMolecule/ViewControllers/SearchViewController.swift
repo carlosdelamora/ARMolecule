@@ -13,7 +13,6 @@ class SearchViewController: UIViewController{
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var moleculeName: UILabel!
     @IBOutlet weak var imageView: UIImageView!
-    
     @IBOutlet weak var saveButton: UIButton!
     
     var sceneViewController: SceneViewController? = nil
@@ -25,6 +24,11 @@ class SearchViewController: UIViewController{
         // Do any additional setup after loading the view.
         searchBar.delegate = self
         navigationItem.titleView = searchBar
+        moleculeName.text = ""
+        saveButton.layer.cornerRadius = 5
+        imageView.layer.cornerRadius = 5
+        saveButton.clipsToBounds = true
+        imageView.clipsToBounds = true
     }
 
     

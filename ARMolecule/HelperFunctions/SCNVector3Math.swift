@@ -109,7 +109,13 @@ extension SCNVector3 {
         
         return angle
     }
+}
+
+
+extension float4x4 {
     
-    
+    static func makeRotate(radians: Float, _ x: Float, _ y: Float, _ z: Float) -> float4x4 {
+        return unsafeBitCast(GLKMatrix4MakeRotation(radians, x, y, z), to: float4x4.self)
+    }
 }
 
