@@ -137,21 +137,50 @@
                                 </view>
                                 <blurEffect style="light"/>
                             </visualEffectView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FingerRotation" translatesAutoresizingMaskIntoConstraints="NO" id="BIy-yp-gM1">
+                                <rect key="frame" x="0.0" y="146" width="375" height="375"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="BIy-yp-gM1" secondAttribute="height" multiplier="1:1" id="8Rw-Qu-FQM"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UOf-Bs-4Td">
+                                <rect key="frame" x="0.0" y="521" width="375" height="40"/>
+                                <color key="backgroundColor" red="0.3411764706" green="0.85490196080000003" blue="0.83529411760000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="Cgb-hc-uOH"/>
+                                </constraints>
+                                <size key="titleShadowOffset" width="-1" height="0.0"/>
+                                <state key="normal" title="Got it!">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="gotItAction:" destination="sCw-gK-KuO" eventType="touchUpInside" id="bWC-dw-Uce"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="AXv-7z-bIa" firstAttribute="top" secondItem="0ig-Nb-ehO" secondAttribute="top" id="3kq-fd-lFi"/>
                             <constraint firstItem="zQr-67-O1B" firstAttribute="leading" secondItem="0ig-Nb-ehO" secondAttribute="leading" id="5rQ-sd-qfe"/>
                             <constraint firstItem="zQr-67-O1B" firstAttribute="top" secondItem="oYh-3P-bCj" secondAttribute="top" id="BfU-N9-3SB"/>
+                            <constraint firstItem="BIy-yp-gM1" firstAttribute="centerX" secondItem="oYh-3P-bCj" secondAttribute="centerX" id="Ew3-j3-ezL"/>
                             <constraint firstItem="0ig-Nb-ehO" firstAttribute="trailing" secondItem="AXv-7z-bIa" secondAttribute="trailing" constant="15" id="Fo7-6J-QgL"/>
+                            <constraint firstItem="UOf-Bs-4Td" firstAttribute="leading" secondItem="0ig-Nb-ehO" secondAttribute="leading" id="XmF-SL-hAL"/>
                             <constraint firstItem="AXv-7z-bIa" firstAttribute="leading" secondItem="0ig-Nb-ehO" secondAttribute="leading" constant="15" id="Z44-9r-fdl"/>
+                            <constraint firstItem="0ig-Nb-ehO" firstAttribute="trailing" secondItem="UOf-Bs-4Td" secondAttribute="trailing" id="cy2-e4-xDT"/>
+                            <constraint firstItem="UOf-Bs-4Td" firstAttribute="top" secondItem="BIy-yp-gM1" secondAttribute="bottom" id="fPY-XR-zwQ"/>
                             <constraint firstItem="0ig-Nb-ehO" firstAttribute="bottom" secondItem="zQr-67-O1B" secondAttribute="bottom" id="qG9-H2-gdP"/>
                             <constraint firstItem="zQr-67-O1B" firstAttribute="trailing" secondItem="0ig-Nb-ehO" secondAttribute="trailing" id="qRD-qS-0eA"/>
+                            <constraint firstItem="BIy-yp-gM1" firstAttribute="centerY" secondItem="oYh-3P-bCj" secondAttribute="centerY" id="qrf-Cv-W8Z"/>
+                            <constraint firstItem="BIy-yp-gM1" firstAttribute="width" secondItem="zQr-67-O1B" secondAttribute="width" id="us0-oJ-gy1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0ig-Nb-ehO"/>
                     </view>
                     <navigationItem key="navigationItem" id="iU6-7c-I79"/>
                     <connections>
+                        <outlet property="fingerRotationView" destination="BIy-yp-gM1" id="JL8-sD-2Yg"/>
+                        <outlet property="gotItButon" destination="UOf-Bs-4Td" id="1Yh-Ya-reW"/>
                         <outlet property="sceneView" destination="zQr-67-O1B" id="aM5-ij-f4Y"/>
                         <outlet property="statusLabel" destination="sx0-SZ-XdI" id="BaM-VG-nH1"/>
                         <outlet property="visualEffectView" destination="AXv-7z-bIa" id="rzp-Pz-4EE"/>
@@ -159,7 +188,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f32-kr-M2G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-753" y="88"/>
+            <point key="canvasLocation" x="-754.39999999999998" y="87.706146926536732"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="FingerRotation" width="139" height="139"/>
+    </resources>
 </document>

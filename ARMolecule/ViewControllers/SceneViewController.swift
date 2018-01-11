@@ -29,6 +29,10 @@ class SceneViewController: UIViewController{
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
     @IBOutlet weak var statusLabel: UILabel!
     
+    @IBOutlet weak var fingerRotationView: UIImageView!
+    
+    @IBOutlet weak var gotItButon: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,10 +72,12 @@ class SceneViewController: UIViewController{
         
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        // Pause the view's session
-        //sceneView.session.pause()
+  
+    
+    @IBAction func gotItAction(_ sender: Any) {
+        
+        gotItButon.isHidden = true
+        fingerRotationView.isHidden = true 
     }
     
     @objc
@@ -112,7 +118,13 @@ class SceneViewController: UIViewController{
         configuration.isLightEstimationEnabled = true
         // Run the view's session
         sceneView.session.run(configuration)
-        insertSpotLight(position: SCNVector3(0,2,-0.30))
+        // if we have a current frame we add the light there otherwise we add it at the almost above the origin of the scene
+        guard let currentFrame = sceneView.session.currentFrame else{
+            return
+        }
+        let cameraSimdPosition = currentFrame.camera.transform.columns.3
+        let position = SCNVector3(cameraSimdPosition.x, cameraSimdPosition.y, cameraSimdPosition.z) + SCNVector3(0,2,-0.30)
+        insertSpotLight(position: position)
         sceneView.autoenablesDefaultLighting = true
     }
   
@@ -173,8 +185,11 @@ extension SceneViewController{
             let hitTestOptions:[SCNHitTestOption: Any] = [.boundingBoxOnly: true]
             let hitresults = sceneView.hitTest(midPoint, options: hitTestOptions)
             nodeMolecule = hitresults.lazy.flatMap{Molecule.existingMoleculeContainingNode(node: $0.node)}.first
+            guard let _ = nodeMolecule else {return}
+            let generator = UISelectionFeedbackGenerator()
+            generator.selectionChanged()
         case .changed:
-            nodeMolecule?.eulerAngles.y -= Float(gesture.rotation)
+            nodeMolecule?.eulerAngles.y -= Float(gesture.rotation)*0.2
         case .ended:
             print("velocity \(gesture.velocity)")
         default:
