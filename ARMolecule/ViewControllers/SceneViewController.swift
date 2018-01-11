@@ -116,11 +116,12 @@ class SceneViewController: UIViewController{
         // Run the view's session
         sceneView.session.run(configuration)
         // if we have a current frame we add the light there otherwise we add it at the almost above the origin of the scene
-        guard let currentFrame = sceneView.session.currentFrame else{
-            return
+        var position = SCNVector3(0,2,-0.30)
+        //if we have cmera we get the position of the camera
+        if let currentFrame = sceneView.session.currentFrame{
+            let cameraSimdPosition = currentFrame.camera.transform.columns.3
+            position = SCNVector3(cameraSimdPosition.x, cameraSimdPosition.y, cameraSimdPosition.z) + SCNVector3(0,2,-0.30)
         }
-        let cameraSimdPosition = currentFrame.camera.transform.columns.3
-        let position = SCNVector3(cameraSimdPosition.x, cameraSimdPosition.y, cameraSimdPosition.z) + SCNVector3(0,2,-0.30)
         insertSpotLight(position: position)
         sceneView.autoenablesDefaultLighting = true
     }
