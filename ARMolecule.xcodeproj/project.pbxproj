@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB951B0A089FB408A84E660B /* Pods_ARMolecule.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C42D7A53B65F8F18D752FA /* Pods_ARMolecule.framework */; };
 		CA6D424C1FF45DF700393356 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6D424B1FF45DF700393356 /* AppDelegate.swift */; };
 		CA6D424E1FF45DF700393356 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = CA6D424D1FF45DF700393356 /* art.scnassets */; };
 		CA6D42501FF45DF700393356 /* SceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6D424F1FF45DF700393356 /* SceneViewController.swift */; };
@@ -25,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1BF464021837F9AF5F7886F1 /* Pods-ARMolecule.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARMolecule.release.xcconfig"; path = "Pods/Target Support Files/Pods-ARMolecule/Pods-ARMolecule.release.xcconfig"; sourceTree = "<group>"; };
+		4D0511C8CDD46CA566EE2280 /* Pods-ARMolecule.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARMolecule.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ARMolecule/Pods-ARMolecule.debug.xcconfig"; sourceTree = "<group>"; };
 		CA6D42481FF45DF700393356 /* ARMolecule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARMolecule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA6D424B1FF45DF700393356 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CA6D424D1FF45DF700393356 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -42,6 +45,7 @@
 		CA6D426D200461B500393356 /* VirtualObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualObject.swift; sourceTree = "<group>"; };
 		CA6D426F2004799C00393356 /* SceneViewController+ARSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneViewController+ARSessionDelegate.swift"; sourceTree = "<group>"; };
 		CA6D4271200551E800393356 /* HelperFunctionsCGPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctionsCGPoint.swift; sourceTree = "<group>"; };
+		E4C42D7A53B65F8F18D752FA /* Pods_ARMolecule.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARMolecule.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,17 +53,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB951B0A089FB408A84E660B /* Pods_ARMolecule.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		06C5AC58A2121036C0C54071 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E4C42D7A53B65F8F18D752FA /* Pods_ARMolecule.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CA6D423F1FF45DF700393356 = {
 			isa = PBXGroup;
 			children = (
 				CA6D424A1FF45DF700393356 /* ARMolecule */,
 				CA6D42491FF45DF700393356 /* Products */,
+				F6608A5FC07BA46B7BC59838 /* Pods */,
+				06C5AC58A2121036C0C54071 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -118,6 +133,15 @@
 			path = HelperFunctions;
 			sourceTree = "<group>";
 		};
+		F6608A5FC07BA46B7BC59838 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4D0511C8CDD46CA566EE2280 /* Pods-ARMolecule.debug.xcconfig */,
+				1BF464021837F9AF5F7886F1 /* Pods-ARMolecule.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -125,9 +149,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CA6D425C1FF45DF700393356 /* Build configuration list for PBXNativeTarget "ARMolecule" */;
 			buildPhases = (
+				433735BCA10EFD6520E9BE6B /* [CP] Check Pods Manifest.lock */,
 				CA6D42441FF45DF700393356 /* Sources */,
 				CA6D42451FF45DF700393356 /* Frameworks */,
 				CA6D42461FF45DF700393356 /* Resources */,
+				254FF636719986CA49208E17 /* [CP] Embed Pods Frameworks */,
+				A31ABC21E14D296BE4EC1C43 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -185,6 +212,64 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		254FF636719986CA49208E17 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ARMolecule/Pods-ARMolecule-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ARMolecule/Pods-ARMolecule-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		433735BCA10EFD6520E9BE6B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ARMolecule-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A31ABC21E14D296BE4EC1C43 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ARMolecule/Pods-ARMolecule-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CA6D42441FF45DF700393356 /* Sources */ = {
@@ -336,6 +421,7 @@
 		};
 		CA6D425D1FF45DF700393356 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D0511C8CDD46CA566EE2280 /* Pods-ARMolecule.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -351,6 +437,7 @@
 		};
 		CA6D425E1FF45DF700393356 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1BF464021837F9AF5F7886F1 /* Pods-ARMolecule.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
