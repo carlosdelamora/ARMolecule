@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1</string>
+	<string>1.2</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -52,18 +52,18 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-    <key>CFBundleURLTypes</key>
-    <array>
-        <dict>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>fb156225418431315</string>
-            </array>
-        </dict>
-    </array>
-    <key>FacebookAppID</key>
-    <string>156225418431315</string>
-    <key>FacebookDisplayName</key>
-    <string>VRMolecule</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb156225418431315</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>156225418431315</string>
+	<key>FacebookDisplayName</key>
+	<string>VRMolecule</string>
 </dict>
 </plist>
