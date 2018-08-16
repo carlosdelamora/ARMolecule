@@ -7,7 +7,7 @@
 		<key>Bolts.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>1</integer>
 		</dict>
 		<key>FBSDKCoreKit.xcscheme</key>
 		<dict>
@@ -27,7 +27,7 @@
 		<key>FacebookCore.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 		<key>FacebookLogin.xcscheme</key>
 		<dict>
