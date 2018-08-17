@@ -198,11 +198,11 @@ struct Conformers {
     }
     
     init?(dictionary:[String:Any]){
-        guard let x = dictionary["x"] as? [Float], let y = dictionary["y"] as? [Float], let z = dictionary["z"] as? [Float] else{
+        guard let x = dictionary["x"] as? [Double], let y = dictionary["y"] as? [Double], let z = dictionary["z"] as? [Double] else{
             return nil 
         }
-        self.x = x
-        self.y = y
-        self.z = z
+        self.x = x.compactMap({Float($0)})
+        self.y = y.compactMap({Float($0)})
+        self.z = z.compactMap({Float($0)}) 
     }
 }

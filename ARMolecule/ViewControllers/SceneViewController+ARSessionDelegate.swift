@@ -89,7 +89,9 @@ extension SceneViewController: ARSCNViewDelegate{
                 message = "Limited tracking: Insufficient details"
             case .initializing:
                 message = "Initializing in progress"
-            }
+            case .relocalizing:
+              message = "Relocalizing"
+          }
         case .notAvailable:
             message = "Tracking not available"
         default:
